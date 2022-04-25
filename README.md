@@ -1,4 +1,4 @@
-# React Fea Blog
+# React FEA Blog
 > Blog built with React.js and Fake Json Server
 
 #### Features:
