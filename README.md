@@ -17,3 +17,4 @@
 - type these commands :
   - npm install
   - json-server --watch data/db.json --port 4000
+  - npm start
