@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
-const CreatePost = (props) => {
+const CreatePost = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [body, setBody] = useState("");
@@ -25,7 +27,7 @@ const CreatePost = (props) => {
     })
       .then((res) => {
         if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
-        props.history.push("/");
+        navigate("/");
       })
       .catch((err) => {
         setError(err.message);

@@ -1,22 +1,25 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../useFetch";
 import { API_URL } from "../../config";
 
-const PostDetails = (props) => {
+const PostDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   let { data: post, loading, error } = useFetch(
-    `${API_URL}/posts/${props.match.params.id}`
+    `${API_URL}/posts/${id}`
   );
 
   const [deleteError, setDeleteError] = useState(null);
 
   const handleDelete = () => {
     setDeleteError(null);
-    fetch(`${API_URL}/posts/${props.match.params.id}`, {
+    fetch(`${API_URL}/posts/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
         if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
-        props.history.push("/");
+        navigate("/");
       })
       .catch((err) => setDeleteError(err.message));
   };
