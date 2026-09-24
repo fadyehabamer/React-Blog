@@ -14,7 +14,7 @@ const renderPosts = () =>
   );
 
 test("renders a card per post with its author", async () => {
-  global.fetch = jest.fn(() =>
+  global.fetch = vi.fn(() =>
     Promise.resolve({
       ok: true,
       json: () =>
@@ -35,7 +35,7 @@ test("renders a card per post with its author", async () => {
 });
 
 test("shows an error instead of 'No posts yet' when the API is down", async () => {
-  global.fetch = jest.fn(() => Promise.reject(new TypeError("Failed to fetch")));
+  global.fetch = vi.fn(() => Promise.reject(new TypeError("Failed to fetch")));
 
   renderPosts();
 
