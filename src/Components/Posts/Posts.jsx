@@ -8,17 +8,10 @@ const Posts = () => {
   
 
 
-  const deletePost = (id) => {
-    let curPosts = [...posts];
-    let newPosts = curPosts.filter((post) => post.id !== id);
-    // setPost(newPosts);
-    // console.log('deleted ' + id);
-  }
-
   return (
     <section className="posts">
       {posts ? posts.map((post) => (
-        <Post key={post.id} post={post} deletePost={deletePost} />
+        <Post key={post.id} post={post} />
       )) : null}
       {loading && <div>Loading...</div>}
       {!posts && !loading && <div>No posts yet</div>}
