@@ -1,10 +1,11 @@
 import Post from "./Post";
 // import { useState, useEffect } from 'react';
 import useFetch from "../../useFetch";
+import { API_URL } from "../../config";
 const Posts = () => {
 
 
-  let {data : posts , loading, error }= useFetch('http://localhost:4000/posts')
+  let {data : posts , loading, error }= useFetch(`${API_URL}/posts`)
   
 
 

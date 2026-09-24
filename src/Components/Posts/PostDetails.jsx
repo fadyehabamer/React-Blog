@@ -1,16 +1,17 @@
 import { useState } from "react";
 import useFetch from "../../useFetch";
+import { API_URL } from "../../config";
 
 const PostDetails = (props) => {
   let { data: post, loading, error } = useFetch(
-    `http://localhost:4000/posts/${props.match.params.id}`
+    `${API_URL}/posts/${props.match.params.id}`
   );
 
   const [deleteError, setDeleteError] = useState(null);
 
   const handleDelete = () => {
     setDeleteError(null);
-    fetch(`http://localhost:4000/posts/${props.match.params.id}`, {
+    fetch(`${API_URL}/posts/${props.match.params.id}`, {
       method: "DELETE",
     })
       .then((res) => {

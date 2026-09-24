@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../../config";
 const CreatePost = (props) => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -17,7 +18,7 @@ const CreatePost = (props) => {
     };
     setSaving(true);
     setError(null);
-    fetch("http://localhost:4000/posts", {
+    fetch(`${API_URL}/posts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
