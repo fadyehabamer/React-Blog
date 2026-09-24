@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useFetch from "../../useFetch";
 
 const PostDetails = (props) => {
@@ -5,12 +6,18 @@ const PostDetails = (props) => {
     `http://localhost:4000/posts/${props.match.params.id}`
   );
 
+  const [deleteError, setDeleteError] = useState(null);
+
   const handleDelete = () => {
+    setDeleteError(null);
     fetch(`http://localhost:4000/posts/${props.match.params.id}`, {
       method: "DELETE",
-    }).then(() => {
-      props.history.push("/");
-    });
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+        props.history.push("/");
+      })
+      .catch((err) => setDeleteError(err.message));
   };
   return (
     <>
@@ -25,6 +32,7 @@ const PostDetails = (props) => {
               Delete{" "}
             </button>
           </div>
+          {deleteError && <div role="alert">Could not delete the post: {deleteError}</div>}
           <img src={post.image} alt="" className="post-details-img" />
           <div className="post-author">
             By: {post.author ? post.author : "Ali"}

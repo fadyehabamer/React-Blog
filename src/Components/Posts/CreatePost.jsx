@@ -4,6 +4,8 @@ const CreatePost = (props) => {
   const [url, setUrl] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("codv");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -13,14 +15,21 @@ const CreatePost = (props) => {
       image: url,
       author,
     };
+    setSaving(true);
+    setError(null);
     fetch("http://localhost:4000/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
-    }).then(() => {
-      // console.log("post added");
-      props.history.push("/");
-    });
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setSaving(false);
+      });
   };
   return (
     <section className="create-post">
@@ -52,8 +61,9 @@ const CreatePost = (props) => {
           <option value="admin">admin</option>
           <option value="codv">codv</option>
         </select>
-        <button className="btn" type="submit">
-          Add Blog
+        {error && <div role="alert">Could not save the post: {error}</div>}
+        <button className="btn" type="submit" disabled={saving}>
+          {saving ? "Saving..." : "Add Blog"}
         </button>
       </form>
     </section>
