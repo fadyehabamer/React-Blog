@@ -1,22 +1,29 @@
+import { useState } from "react";
 import useFetch from "../../useFetch";
+import { API_URL } from "../../config";
 
 const PostDetails = (props) => {
-  console.log(props.match.params.id);
-
-  let { data: post, loading, } = useFetch(
-    `http://localhost:4000/posts/${props.match.params.id}`
+  let { data: post, loading, error } = useFetch(
+    `${API_URL}/posts/${props.match.params.id}`
   );
 
+  const [deleteError, setDeleteError] = useState(null);
+
   const handleDelete = () => {
-    fetch(`http://localhost:4000/posts/${props.match.params.id}`, {
+    setDeleteError(null);
+    fetch(`${API_URL}/posts/${props.match.params.id}`, {
       method: "DELETE",
-    }).then(() => {
-      props.history.push("/");
-    });
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+        props.history.push("/");
+      })
+      .catch((err) => setDeleteError(err.message));
   };
   return (
     <>
       {loading && <div>loading ...</div>}
+      {error && !loading && <div role="alert">Could not load this post: {error}</div>}
       {post && !loading  && (
         <article className="container post-details">
           <div className="post-details-title">
@@ -26,6 +33,7 @@ const PostDetails = (props) => {
               Delete{" "}
             </button>
           </div>
+          {deleteError && <div role="alert">Could not delete the post: {deleteError}</div>}
           <img src={post.image} alt="" className="post-details-img" />
           <div className="post-author">
             By: {post.author ? post.author : "Ali"}
