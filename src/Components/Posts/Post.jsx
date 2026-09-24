@@ -6,7 +6,7 @@ const Post =( { post }) => {
                 src={post.image}
                 alt={post.title}
             />
-            <div className="post-author">By: Fady</div>
+            {post.author && <div className="post-author">By: {post.author}</div>}
             <h3>{post.title}</h3>
         </Link>
         
