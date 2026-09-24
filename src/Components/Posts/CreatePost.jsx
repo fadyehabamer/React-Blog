@@ -36,29 +36,32 @@ const CreatePost = (props) => {
     <section className="create-post">
       <h2>Add New Post</h2>
       <form onSubmit={handleForm}>
-        <label>Blog title :</label>
+        <label htmlFor="post-title">Blog title :</label>
         <input
+          id="post-title"
           type="text"
           required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <label>Blog Image :</label>
+        <label htmlFor="post-image">Blog Image :</label>
         <input
+          id="post-image"
           type="url"
           required
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
-        <label>Blog body :</label>
+        <label htmlFor="post-body">Blog body :</label>
         <textarea
+          id="post-body"
           required
           rows="5"
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
-        <label>Blog author :</label>
-        <select value={author} onChange={(e) => setAuthor(e.target.value)}>
+        <label htmlFor="post-author">Blog author :</label>
+        <select id="post-author" value={author} onChange={(e) => setAuthor(e.target.value)}>
           <option value="admin">admin</option>
           <option value="codv">codv</option>
         </select>
