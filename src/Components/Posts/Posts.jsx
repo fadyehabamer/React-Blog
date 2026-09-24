@@ -4,7 +4,7 @@ import useFetch from "../../useFetch";
 const Posts = () => {
 
 
-  let {data : posts , loading }= useFetch('http://localhost:4000/posts')
+  let {data : posts , loading, error }= useFetch('http://localhost:4000/posts')
   
 
 
@@ -14,7 +14,8 @@ const Posts = () => {
         <Post key={post.id} post={post} />
       )) : null}
       {loading && <div>Loading...</div>}
-      {!posts && !loading && <div>No posts yet</div>}
+      {error && !loading && <div role="alert">Could not load posts: {error}</div>}
+      {!error && !loading && (!posts || posts.length === 0) && <div>No posts yet</div>}
     </section>
   );
 };

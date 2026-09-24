@@ -1,9 +1,7 @@
 import useFetch from "../../useFetch";
 
 const PostDetails = (props) => {
-  console.log(props.match.params.id);
-
-  let { data: post, loading, } = useFetch(
+  let { data: post, loading, error } = useFetch(
     `http://localhost:4000/posts/${props.match.params.id}`
   );
 
@@ -17,6 +15,7 @@ const PostDetails = (props) => {
   return (
     <>
       {loading && <div>loading ...</div>}
+      {error && !loading && <div role="alert">Could not load this post: {error}</div>}
       {post && !loading  && (
         <article className="container post-details">
           <div className="post-details-title">
