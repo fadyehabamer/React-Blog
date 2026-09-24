@@ -5,7 +5,7 @@ import App from "./App";
 
 beforeEach(() => {
   window.history.pushState({}, "", "/");
-  global.fetch = jest.fn(() =>
+  global.fetch = vi.fn(() =>
     Promise.resolve({ ok: true, json: () => Promise.resolve([]) })
   );
 });

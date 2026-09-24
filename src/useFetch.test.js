@@ -6,7 +6,7 @@ afterEach(() => {
 });
 
 test("returns the parsed JSON on success", async () => {
-  global.fetch = jest.fn(() =>
+  global.fetch = vi.fn(() =>
     Promise.resolve({ ok: true, json: () => Promise.resolve([{ id: 1 }]) })
   );
 
@@ -22,7 +22,7 @@ test("returns the parsed JSON on success", async () => {
 });
 
 test("reports an error and stops loading when the response is not ok", async () => {
-  global.fetch = jest.fn(() => Promise.resolve({ ok: false, status: 500 }));
+  global.fetch = vi.fn(() => Promise.resolve({ ok: false, status: 500 }));
 
   const { result } = renderHook(() => useFetch("/posts"));
 
@@ -32,7 +32,7 @@ test("reports an error and stops loading when the response is not ok", async () 
 });
 
 test("reports an error when the server cannot be reached", async () => {
-  global.fetch = jest.fn(() => Promise.reject(new TypeError("Failed to fetch")));
+  global.fetch = vi.fn(() => Promise.reject(new TypeError("Failed to fetch")));
 
   const { result } = renderHook(() => useFetch("/posts"));
 
@@ -42,7 +42,7 @@ test("reports an error when the server cannot be reached", async () => {
 
 test("aborts the pending request on unmount", () => {
   let signal;
-  global.fetch = jest.fn((url, options) => {
+  global.fetch = vi.fn((url, options) => {
     signal = options.signal;
     return new Promise(() => {});
   });
