@@ -1,4 +1,7 @@
 # React FEA Blog
+
+[![CI](https://github.com/fadyehabamer/React-Blog/actions/workflows/ci.yml/badge.svg)](https://github.com/fadyehabamer/React-Blog/actions/workflows/ci.yml)
+
 > Blog built with React.js and Fake Json Server
 
 #### Features:
